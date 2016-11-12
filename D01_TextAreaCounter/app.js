@@ -25,12 +25,19 @@ var TextAreaCounter = React.createClass({
   render: function(){
     return React.DOM.div(null,
       React.DOM.textarea({
-        defaultValue: this.state.text,
+        value: this.state.text,
         onChange: this._textChange
       }),
       React.DOM.h3(null, this.state.text.length)
     );
   },
+  componentWillReceiveProps: function(newProps){
+    this.setState({
+      text: newProps.defaultValue
+    });
+    console.log(newProps.defaultValue);
+  },
+
   _textChange: function(ev){
     this.setState({
       text: ev.target.value
@@ -43,6 +50,13 @@ var myTextAreaCounter = ReactDOM.render(
   React.createElement(TextAreaCounter, {
     //property 전달
     defaultValue: 'Bob',
+  }),
+  document.getElementById('app')
+);
+
+myTextAreaCounter = ReactDOM.render(
+  React.createElement(TextAreaCounter, {
+    defaultValue: 'Hello',
   }),
   document.getElementById('app')
 );
